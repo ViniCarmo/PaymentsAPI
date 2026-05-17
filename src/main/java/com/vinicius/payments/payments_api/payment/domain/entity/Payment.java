@@ -1,6 +1,6 @@
 package com.vinicius.payments.payments_api.payment.domain.entity;
 
-import com.vinicius.payments.payments_api.payment.domain.enums.StateMachine;
+import com.vinicius.payments.payments_api.payment.domain.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,13 +11,13 @@ public class Payment {
     private Integer sourceAccountId;
     private Integer destinationAccountId;
     private BigDecimal amount;
-    private StateMachine status;
+    private PaymentStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime processedAt;
     private String idempotenceKey;
     private String failureReason;
 
-    public Payment(Integer id, Integer sourceAccountId, Integer destinationAccountId, BigDecimal amount, StateMachine status, LocalDateTime createdAt, LocalDateTime processedAt, String idempotenceKey, String failureReason) {
+    public Payment(Integer id, Integer sourceAccountId, Integer destinationAccountId, BigDecimal amount, PaymentStatus status, LocalDateTime createdAt, LocalDateTime processedAt, String idempotenceKey, String failureReason) {
         this.id = id;
         this.sourceAccountId = sourceAccountId;
         this.destinationAccountId = destinationAccountId;
@@ -47,7 +47,7 @@ public class Payment {
         return amount;
     }
 
-    public StateMachine getStatus() {
+    public PaymentStatus getStatus() {
         return status;
     }
 
