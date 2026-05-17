@@ -1,6 +1,7 @@
 package com.vinicius.payments.payments_api.payment.domain.entity;
 
 import com.vinicius.payments.payments_api.payment.domain.enums.PaymentStatus;
+import com.vinicius.payments.payments_api.payment.domain.exceptions.InvalidPaymentStatusTransitionException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -29,7 +30,44 @@ public class Payment {
         this.failureReason = failureReason;
     }
 
+    public void authorize() {
+        if (this.status != PaymentStatus.PENDING) {
+            throw new InvalidPaymentStatusTransitionException(
+                    this.status, PaymentStatus.AUTHORIZED
+            );
+        }
+        this.status = PaymentStatus.AUTHORIZED;
+    }
 
+    public void complete() {
+        if (this.status != PaymentStatus.AUTHORIZED) {
+            throw new InvalidPaymentStatusTransitionException(
+                    this.status, PaymentStatus.COMPLETED
+            );
+        }
+        this.status = PaymentStatus.COMPLETED;
+        this.processedAt = LocalDateTime.now();
+    }
+
+    public void fail(String reason) {
+        if (this.status != PaymentStatus.PENDING &&
+                this.status != PaymentStatus.AUTHORIZED) {
+            throw new InvalidPaymentStatusTransitionException(
+                    this.status, PaymentStatus.FAILED
+            );
+        }
+        this.status = PaymentStatus.FAILED;
+        this.failureReason = reason;
+    }
+
+    public void reverse() {
+        if (this.status != PaymentStatus.COMPLETED) {
+            throw new InvalidPaymentStatusTransitionException(
+                    this.status, PaymentStatus.REVERSED
+            );
+        }
+        this.status = PaymentStatus.REVERSED;
+    }
 
     public Integer getId() {
         return id;
