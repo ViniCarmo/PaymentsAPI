@@ -1,6 +1,5 @@
 package com.vinicius.payments.payments_api.user.domain.repository;
 
-import com.vinicius.payments.payments_api.account.domain.entity.Account;
 import com.vinicius.payments.payments_api.user.domain.entity.User;
 
 import java.util.Optional;
