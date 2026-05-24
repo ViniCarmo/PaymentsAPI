@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 
 public class User {
 
-    public User(Integer id, String name, String email, String login, String password) {
+    public User(Integer id, String name, String email, String login, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     private Integer id;

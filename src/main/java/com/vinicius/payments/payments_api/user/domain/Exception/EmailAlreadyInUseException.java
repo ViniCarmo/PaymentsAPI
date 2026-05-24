@@ -1,7 +1,7 @@
 package com.vinicius.payments.payments_api.user.domain.Exception;
 
-public class EmailAnreadyInUseException extends RuntimeException{
-    public EmailAnreadyInUseException(String email){
+public class EmailAlreadyInUseException extends RuntimeException{
+    public EmailAlreadyInUseException(String email){
         super("Email " + email + " is already in use.");
     }
 }

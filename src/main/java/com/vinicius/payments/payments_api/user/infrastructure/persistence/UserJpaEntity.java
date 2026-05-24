@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class UserJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name", nullable = false)

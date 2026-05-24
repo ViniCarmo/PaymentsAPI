@@ -1,5 +1,7 @@
 package com.vinicius.payments.payments_api.account.domain.entity;
 
+import com.vinicius.payments.payments_api.account.domain.exception.InsufficientBalanceException;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -11,31 +13,26 @@ public class Account {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Account(
-            Integer id,
-            Integer userId
-    ) {
-
+    public Account(Integer id, Integer userId, BigDecimal balance, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.userId = userId;
-        this.balance = BigDecimal.ZERO;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.balance = balance;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public void deposit(BigDecimal amount) {
         validateAmount(amount);
-
         this.balance = this.balance.add(amount);
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void withdraw(BigDecimal amount) {
+    public void withdraw(BigDecimal amount){
 
         validateAmount(amount);
 
         if(this.balance.compareTo(amount) < 0) {
-            throw new RuntimeException("Insufficient balance");
+            throw new InsufficientBalanceException("Insufficient balance");
         }
 
         this.balance = this.balance.subtract(amount);
@@ -43,9 +40,8 @@ public class Account {
     }
 
     private void validateAmount(BigDecimal amount) {
-
         if(amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RuntimeException("Invalid amount");
+            throw new IllegalArgumentException("Invalid amount");
         }
     }
 
