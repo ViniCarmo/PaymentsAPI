@@ -4,6 +4,16 @@ import java.time.LocalDateTime;
 
 public class User {
 
+
+
+    private Integer id;
+    private String name;
+    private String email;
+    private String login;
+    private String password;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
     public User(Integer id, String name, String email, String login, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
@@ -13,14 +23,6 @@ public class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
-    private Integer id;
-    private String name;
-    private String email;
-    private String login;
-    private String password;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     public void changePassword(String newPassword) {
         this.password = newPassword;
