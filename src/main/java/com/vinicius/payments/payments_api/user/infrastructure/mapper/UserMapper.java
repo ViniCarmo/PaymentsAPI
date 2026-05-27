@@ -23,6 +23,8 @@ public class UserMapper {
                 entity.getName(),
                 entity.getEmail(),
                 entity.getLogin(),
-                entity.getPassword());
+                entity.getPassword(),
+                entity.getCreatedAt(),
+                entity.getUpdatedAt());
     }
 }
