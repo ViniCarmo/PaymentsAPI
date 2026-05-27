@@ -1,6 +1,6 @@
 package com.vinicius.payments.payments_api.user.interfaces.controller;
 
-import com.vinicius.payments.payments_api.user.infrastructure.persistence.UserJpaRepository;
+import com.vinicius.payments.payments_api.user.application.useCases.*;
 import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UserRequestDto;
 import com.vinicius.payments.payments_api.user.interfaces.dto.response.UserResponseDto;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    private final UserJpaRepository userJpaRepository;
+    private final CreateUserUseCase createUserUseCase;
+    private final DeleteUserUseCase deleteUserUseCase;
+    private final FindUserByEmailUseCase findUserByEmailUseCase;
+    private final FindUserByIdUseCase findUserByIdUseCase;
+    private final UpdateProfileUseCase updateProfileUseCase;
+    private final UpdatePasswordUseCase updatePasswordUseCase;
 
-    public UserController(UserJpaRepository userJpaRepository) {
-        this.userJpaRepository = userJpaRepository;
-    }
 
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
-    
+
     }
 }
