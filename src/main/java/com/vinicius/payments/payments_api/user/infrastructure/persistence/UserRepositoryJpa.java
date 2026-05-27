@@ -19,9 +19,7 @@ public class UserRepositoryJpa implements UserRepository {
     @Override
     public User save(User user) {
         UserJpaEntity entity = UserMapper.toJpaEntity(user);
-
         UserJpaEntity saved = userJpaRepository.save(entity);
-
         return UserMapper.toDomainEntity(saved);
     }
 
@@ -41,5 +39,10 @@ public class UserRepositoryJpa implements UserRepository {
     @Override
     public void deleteById(Integer id) {
         userJpaRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userJpaRepository.existsByEmail(email);
     }
 }
