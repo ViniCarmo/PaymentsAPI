@@ -1,4 +1,4 @@
-package com.vinicius.payments.payments_api.user.interfaces.dto;
+package com.vinicius.payments.payments_api.user.interfaces.dto.response;
 
 import java.time.LocalDateTime;
 
