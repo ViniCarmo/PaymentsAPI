@@ -1,4 +1,4 @@
-package com.vinicius.payments.payments_api.user.domain.Exception;
+package com.vinicius.payments.payments_api.user.domain.exception;
 
 public class UserNotFoundException extends  RuntimeException{
     public UserNotFoundException(Integer id){

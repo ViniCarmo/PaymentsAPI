@@ -1,6 +1,6 @@
 package com.vinicius.payments.payments_api.user.application.useCases;
 
-import com.vinicius.payments.payments_api.user.domain.Exception.EmailAlreadyInUseException;
+import com.vinicius.payments.payments_api.user.domain.exception.EmailAlreadyInUseException;
 import com.vinicius.payments.payments_api.user.domain.entity.User;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 
