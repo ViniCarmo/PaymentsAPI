@@ -24,12 +24,17 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public static User create(String name, String email, String login, String password) {
+        LocalDateTime now = LocalDateTime.now();
+        return new User(null, name, email, login, password, now, now);
+    }
+
     public void changePassword(String newPassword) {
         this.password = newPassword;
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void changeName(String newName) {
+    public void update(String newName) {
         this.name = newName;
         this.updatedAt = LocalDateTime.now();
     }
