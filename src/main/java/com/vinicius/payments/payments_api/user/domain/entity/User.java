@@ -34,8 +34,10 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void update(String newName) {
+    public void updateProfile(String newName, String newEmail, String newLogin) {
         this.name = newName;
+        this.email = newEmail;
+        this.login = newLogin;
         this.updatedAt = LocalDateTime.now();
     }
 
