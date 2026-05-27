@@ -1,6 +1,7 @@
 package com.vinicius.payments.payments_api.user.application.useCases;
 
 import com.vinicius.payments.payments_api.user.domain.Exception.UserNotFoundException;
+import com.vinicius.payments.payments_api.user.domain.entity.User;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 
 public class DeleteUserUseCase {
@@ -12,7 +13,7 @@ public class DeleteUserUseCase {
     }
 
     public void execute(Integer id){
-        userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        userRepository.deleteById(user);
     }
 }
