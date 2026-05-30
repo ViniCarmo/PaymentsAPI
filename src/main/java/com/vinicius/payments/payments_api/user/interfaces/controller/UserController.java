@@ -4,6 +4,7 @@ import com.vinicius.payments.payments_api.user.application.useCases.*;
 import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UpdatePasswordRequestDto;
 import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UserRequestDto;
 import com.vinicius.payments.payments_api.user.interfaces.dto.response.UserResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         var user = createUserUseCase.execute(userRequestDto.name(), userRequestDto.email(), userRequestDto.login(), userRequestDto.password());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
@@ -53,13 +54,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Integer id, @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> updateUser(@Valid @PathVariable Integer id, @RequestBody UserRequestDto userRequestDto) {
         var user = updateProfileUseCase.execute(id, userRequestDto.name(), userRequestDto.email(), userRequestDto.login());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
 
     @PutMapping("/{id}/password")
-    public ResponseEntity<Void> updateUserPassword(@PathVariable Integer id, @RequestBody UpdatePasswordRequestDto request) {
+    public ResponseEntity<Void> updateUserPassword(@Valid @PathVariable Integer id, @RequestBody UpdatePasswordRequestDto request) {
         updatePasswordUseCase.execute(id, request.newPassword());
         return ResponseEntity.ok().build();
     }
