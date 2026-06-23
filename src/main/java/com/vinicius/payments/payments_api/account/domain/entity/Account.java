@@ -45,6 +45,16 @@ public class Account {
         }
     }
 
+    public static Account create(Integer userId) {
+        return new Account(
+                null,
+                userId,
+                BigDecimal.ZERO,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+    }
+
     public Integer getId() {
         return id;
     }
