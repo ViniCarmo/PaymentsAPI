@@ -28,7 +28,6 @@ public class Account {
     }
 
     public void withdraw(BigDecimal amount){
-
         validateAmount(amount);
 
         if(this.balance.compareTo(amount) < 0) {
