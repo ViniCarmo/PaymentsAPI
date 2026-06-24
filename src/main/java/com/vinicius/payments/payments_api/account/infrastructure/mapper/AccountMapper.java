@@ -5,7 +5,7 @@ import com.vinicius.payments.payments_api.account.infrastructure.persistence.Acc
 
 public class AccountMapper {
 
-    public static AccountJpaEntity toAccountJpaEntity(Account account) {
+    public static AccountJpaEntity toJpaEntity(Account account) {
         return new AccountJpaEntity(
                 account.getId(),
                 account.getUserId(),
@@ -15,7 +15,7 @@ public class AccountMapper {
         );
     }
 
-    public static Account toAccount(AccountJpaEntity accountJpaEntity) {
+    public static Account toDomainEntity(AccountJpaEntity accountJpaEntity) {
         return new Account(
                 accountJpaEntity.getId(),
                 accountJpaEntity.getUserId(),
