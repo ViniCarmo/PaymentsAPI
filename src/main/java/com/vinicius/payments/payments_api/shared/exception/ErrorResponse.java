@@ -1,4 +1,4 @@
-package com.vinicius.payments.payments_api.exception;
+package com.vinicius.payments.payments_api.shared.exception;
 
 import java.time.LocalDateTime;
 

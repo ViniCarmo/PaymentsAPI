@@ -1,4 +1,4 @@
-package com.vinicius.payments.payments_api.exception;
+package com.vinicius.payments.payments_api.shared.exception;
 
 import com.vinicius.payments.payments_api.user.domain.exception.EmailAlreadyInUseException;
 import com.vinicius.payments.payments_api.user.domain.exception.UserNotFoundException;
