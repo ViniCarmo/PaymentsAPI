@@ -1,6 +1,7 @@
 package com.vinicius.payments.payments_api.account.application.useCases;
 
 import com.vinicius.payments.payments_api.account.domain.entity.Account;
+import com.vinicius.payments.payments_api.account.domain.exception.AccountNotFoundException;
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class findAccountByIdUseCase {
 
     public Account execute(Integer id){
         return accountRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found with id: " + id));
+                .orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
             }
 
 }

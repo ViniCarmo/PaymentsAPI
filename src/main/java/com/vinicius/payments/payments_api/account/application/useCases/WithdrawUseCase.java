@@ -1,6 +1,8 @@
 package com.vinicius.payments.payments_api.account.application.useCases;
 
 import com.vinicius.payments.payments_api.account.domain.entity.Account;
+import com.vinicius.payments.payments_api.account.domain.exception.AccountNotFoundException;
+import com.vinicius.payments.payments_api.account.domain.exception.InsufficientBalanceException;
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
 import org.springframework.stereotype.Component;
 
@@ -15,11 +17,11 @@ public class WithdrawUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public void withdraw(Integer accountId, BigDecimal amount) {
-        Account account = accountRepository.findById(accountId).orElseThrow(() -> new IllegalArgumentException("Account not found"));]
+    public Account withdraw(Integer accountId, BigDecimal amount) {
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new AccountNotFoundException("Account not found"));
         account.withdraw(amount);
 
-        accountRepository.save(account);
+        return accountRepository.save(account);
 
     }
 }

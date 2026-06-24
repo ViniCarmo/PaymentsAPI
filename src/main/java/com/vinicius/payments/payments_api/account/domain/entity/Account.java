@@ -40,7 +40,7 @@ public class Account {
 
     private void validateAmount(BigDecimal amount) {
         if(amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Invalid amount");
+            throw new InsufficientBalanceException("Invalid amount");
         }
     }
 
