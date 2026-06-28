@@ -5,6 +5,7 @@ import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UpdatePas
 import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UserRequestDto;
 import com.vinicius.payments.payments_api.user.interfaces.dto.response.UserResponseDto;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         var user = createUserUseCase.execute(userRequestDto.name(), userRequestDto.email(), userRequestDto.login(), userRequestDto.password());
-        return ResponseEntity.ok(UserResponseDto.from(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponseDto.from(user));
     }
 
     @GetMapping("/{id}")
