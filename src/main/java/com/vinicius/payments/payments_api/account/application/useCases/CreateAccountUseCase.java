@@ -13,10 +13,10 @@ public class CreateAccountUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public void execute(Integer userId){
+    public Account execute(Integer userId){
         if(accountRepository.findByUserId(userId).isPresent()) {
             throw new UserAlreadyHasAnAccountException("The user already has an account.");
         }
         Account account = Account.create(userId);
-        accountRepository.save(account);
+        return accountRepository.save(account);
 }}
