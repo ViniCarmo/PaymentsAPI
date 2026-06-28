@@ -6,11 +6,11 @@ import com.vinicius.payments.payments_api.account.domain.repository.AccountRepos
 import org.springframework.stereotype.Component;
 
 @Component
-public class findAccountByIdUseCase {
+public class FindAccountByIdUseCase {
 
     private final AccountRepository accountRepository;
 
-    public findAccountByIdUseCase(AccountRepository accountRepository) {
+    public FindAccountByIdUseCase(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
