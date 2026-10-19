@@ -72,7 +72,8 @@ class UserUseCasesTest {
             when(userRepository.findByEmail("alice@mail.com")).thenReturn(Optional.of(existingUser()));
 
             assertThatThrownBy(() -> useCase.execute("Alice", "alice@mail.com", "alice", "secret123"))
-                    .isInstanceOf(EmailAlreadyInUseException.class);
+                    .isInstanceOf(EmailAlreadyInUseException.class)
+                    .hasMessage("Email alice@mail.com is already in use.");
 
             verify(userRepository, never()).save(any());
             verifyNoInteractions(passwordEncoder);
@@ -239,7 +240,8 @@ class UserUseCasesTest {
             when(userRepository.existsByEmail("bob@mail.com")).thenReturn(true);
 
             assertThatThrownBy(() -> useCase.execute(userId, "Alice", "bob@mail.com", "alice"))
-                    .isInstanceOf(EmailAlreadyInUseException.class);
+                    .isInstanceOf(EmailAlreadyInUseException.class)
+                    .hasMessage("Email bob@mail.com is already in use.");
 
             verify(userRepository, never()).save(any());
         }

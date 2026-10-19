@@ -21,8 +21,7 @@ public class UpdateProfileUseCase {
                         new UserNotFoundException(id));
 
         if (userRepository.existsByEmail(email) && !user.getEmail().equals(email)) {
-            throw new EmailAlreadyInUseException(
-                    "Email already in use");
+            throw new EmailAlreadyInUseException(email);
         }
 
         user.updateProfile(name, email, login);
