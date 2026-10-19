@@ -16,7 +16,7 @@ public class WithdrawUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public Account withdraw(UUID accountId, BigDecimal amount) {
+    public Account execute(UUID accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId).orElseThrow(() -> new AccountNotFoundException("Account not found"));
         account.withdraw(amount);
 
