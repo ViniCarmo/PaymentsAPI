@@ -7,6 +7,7 @@ import com.vinicius.payments.payments_api.account.domain.repository.AccountRepos
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Component
 public class DepositUseCase {
@@ -17,7 +18,7 @@ public class DepositUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public Account execute(Integer accountId, BigDecimal amount) {
+    public Account execute(UUID accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId).orElseThrow(() -> new AccountNotFoundException("Account not found"));
         account.deposit(amount);
         return accountRepository.save(account);

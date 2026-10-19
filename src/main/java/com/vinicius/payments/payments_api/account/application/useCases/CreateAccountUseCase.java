@@ -5,6 +5,8 @@ import com.vinicius.payments.payments_api.account.domain.exception.UserAlreadyHa
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class CreateAccountUseCase {
     private final AccountRepository accountRepository;
@@ -13,7 +15,7 @@ public class CreateAccountUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public Account execute(Integer userId){
+    public Account execute(UUID userId){
         if(accountRepository.findByUserId(userId).isPresent()) {
             throw new UserAlreadyHasAnAccountException("The user already has an account.");
         }

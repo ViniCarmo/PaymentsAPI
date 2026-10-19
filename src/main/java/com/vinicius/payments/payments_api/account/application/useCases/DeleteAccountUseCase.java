@@ -5,6 +5,8 @@ import com.vinicius.payments.payments_api.account.domain.exception.AccountNotFou
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class DeleteAccountUseCase {
 
@@ -14,7 +16,7 @@ public class DeleteAccountUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public void execute(Integer accountId) {
+    public void execute(UUID accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + accountId));
 

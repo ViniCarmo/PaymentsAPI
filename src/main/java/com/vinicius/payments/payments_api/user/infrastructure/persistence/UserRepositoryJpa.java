@@ -6,6 +6,7 @@ import com.vinicius.payments.payments_api.user.infrastructure.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class UserRepositoryJpa implements UserRepository {
@@ -25,7 +26,7 @@ public class UserRepositoryJpa implements UserRepository {
 
 
     @Override
-    public Optional<User> findById(Integer id) {
+    public Optional<User> findById(UUID id) {
         return userJpaRepository.findById(id)
                 .map(UserMapper::toDomainEntity);
     }
@@ -37,7 +38,7 @@ public class UserRepositoryJpa implements UserRepository {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(UUID id) {
         userJpaRepository.deleteById(id);
     }
 

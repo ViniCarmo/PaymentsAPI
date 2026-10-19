@@ -5,12 +5,13 @@ import com.vinicius.payments.payments_api.payment.domain.exceptions.InvalidPayme
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Payment {
 
-    private Integer id;
-    private Integer sourceAccountId;
-    private Integer destinationAccountId;
+    private UUID id;
+    private UUID sourceAccountId;
+    private UUID destinationAccountId;
     private BigDecimal amount;
     private PaymentStatus status;
     private LocalDateTime createdAt;
@@ -18,7 +19,7 @@ public class Payment {
     private String idempotenceKey;
     private String failureReason;
 
-    public Payment(Integer id, Integer sourceAccountId, Integer destinationAccountId, BigDecimal amount, PaymentStatus status, LocalDateTime createdAt, LocalDateTime processedAt, String idempotenceKey, String failureReason) {
+    public Payment(UUID id, UUID sourceAccountId, UUID destinationAccountId, BigDecimal amount, PaymentStatus status, LocalDateTime createdAt, LocalDateTime processedAt, String idempotenceKey, String failureReason) {
         this.id = id;
         this.sourceAccountId = sourceAccountId;
         this.destinationAccountId = destinationAccountId;
@@ -69,15 +70,15 @@ public class Payment {
         this.status = PaymentStatus.REVERSED;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public Integer getSourceAccountId() {
+    public UUID getSourceAccountId() {
         return sourceAccountId;
     }
 
-    public Integer getDestinationAccountId() {
+    public UUID getDestinationAccountId() {
         return destinationAccountId;
     }
 

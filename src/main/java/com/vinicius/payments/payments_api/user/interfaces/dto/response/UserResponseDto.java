@@ -3,8 +3,9 @@ package com.vinicius.payments.payments_api.user.interfaces.dto.response;
 import com.vinicius.payments.payments_api.user.domain.entity.User;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-public record UserResponseDto( Integer id,
+public record UserResponseDto( UUID id,
                                String name,
                                String email,
                                String login,

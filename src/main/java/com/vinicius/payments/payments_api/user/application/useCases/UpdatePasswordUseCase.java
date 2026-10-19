@@ -5,6 +5,8 @@ import com.vinicius.payments.payments_api.user.domain.entity.User;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class UpdatePasswordUseCase {
 
@@ -14,9 +16,9 @@ public class UpdatePasswordUseCase {
         this.userRepository = userRepository;
     }
 
-    public void execute(Integer id, String newPassword){
+    public void execute(UUID id, String newPassword){
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new UserNotFoundException(id));
         user.changePassword(newPassword);
         userRepository.save(user);
     }

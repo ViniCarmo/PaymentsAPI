@@ -7,6 +7,7 @@ import com.vinicius.payments.payments_api.account.domain.repository.AccountRepos
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Component
 public class WithdrawUseCase {
@@ -17,7 +18,7 @@ public class WithdrawUseCase {
         this.accountRepository = accountRepository;
     }
 
-    public Account withdraw(Integer accountId, BigDecimal amount) {
+    public Account withdraw(UUID accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId).orElseThrow(() -> new AccountNotFoundException("Account not found"));
         account.withdraw(amount);
 

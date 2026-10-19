@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/accounts")
 public class AccountController {
@@ -34,19 +36,19 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAccount(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteAccount(@PathVariable UUID id) {
         deleteAccountUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<AccountResponseDto> findAccountById(@PathVariable Integer id) {
+    public ResponseEntity<AccountResponseDto> findAccountById(@PathVariable UUID id) {
         var account = findAccountByIdUseCase.execute(id);
         return ResponseEntity.ok(AccountResponseDto.from(account));
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<AccountResponseDto> findAccountByUserId(@PathVariable Integer userId) {
+    public ResponseEntity<AccountResponseDto> findAccountByUserId(@PathVariable UUID userId) {
     var account =  findByUserIdUseCase.execute(userId);
     return ResponseEntity.ok(AccountResponseDto.from(account));
     }

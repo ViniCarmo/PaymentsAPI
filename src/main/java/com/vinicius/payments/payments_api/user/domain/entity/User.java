@@ -1,12 +1,13 @@
 package com.vinicius.payments.payments_api.user.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class User {
 
 
 
-    private Integer id;
+    private UUID id;
     private String name;
     private String email;
     private String login;
@@ -14,7 +15,7 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public User(Integer id, String name, String email, String login, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(UUID id, String name, String email, String login, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -41,7 +42,7 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 

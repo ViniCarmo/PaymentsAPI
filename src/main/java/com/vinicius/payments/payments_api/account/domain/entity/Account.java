@@ -4,16 +4,17 @@ import com.vinicius.payments.payments_api.account.domain.exception.InsufficientB
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Account {
 
-    private Integer id;
-    private Integer userId;
+    private UUID id;
+    private UUID userId;
     private BigDecimal balance;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Account(Integer id, Integer userId, BigDecimal balance, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Account(UUID id, UUID userId, BigDecimal balance, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.userId = userId;
         this.balance = balance;
@@ -44,7 +45,7 @@ public class Account {
         }
     }
 
-    public static Account create(Integer userId) {
+    public static Account create(UUID userId) {
         return new Account(
                 null,
                 userId,
@@ -54,11 +55,11 @@ public class Account {
         );
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public Integer getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 

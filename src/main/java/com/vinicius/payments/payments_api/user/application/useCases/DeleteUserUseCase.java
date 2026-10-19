@@ -5,6 +5,8 @@ import com.vinicius.payments.payments_api.user.domain.entity.User;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class DeleteUserUseCase {
 
@@ -14,7 +16,7 @@ public class DeleteUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public void execute(Integer id){
+    public void execute(UUID id){
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         userRepository.deleteById(user.getId());
     }

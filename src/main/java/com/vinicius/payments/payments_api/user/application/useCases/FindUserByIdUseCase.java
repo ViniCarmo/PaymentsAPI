@@ -5,6 +5,8 @@ import com.vinicius.payments.payments_api.user.domain.entity.User;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class FindUserByIdUseCase {
 
@@ -14,7 +16,7 @@ public class FindUserByIdUseCase {
         this.userRepository = userRepository;
     }
 
-    public User execute(Integer id){
+    public User execute(UUID id){
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 }

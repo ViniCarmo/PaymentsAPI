@@ -6,6 +6,8 @@ import com.vinicius.payments.payments_api.user.domain.entity.User;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class UpdateProfileUseCase {
 
@@ -15,10 +17,10 @@ public class UpdateProfileUseCase {
         this.userRepository = userRepository;
     }
 
-    public User execute(Integer id, String name, String email, String login) {
+    public User execute(UUID id, String name, String email, String login) {
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
-                        new UserNotFoundException("User not found"));
+                        new UserNotFoundException(id));
 
         if (userRepository.existsByEmail(email) && !user.getEmail().equals(email)) {
             throw new EmailAlreadyInUseException(

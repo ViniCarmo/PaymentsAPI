@@ -1,7 +1,9 @@
 package com.vinicius.payments.payments_api.user.domain.exception;
 
+import java.util.UUID;
+
 public class UserNotFoundException extends  RuntimeException{
-    public UserNotFoundException(Integer id){
+    public UserNotFoundException(UUID id){
         super("User with id " + id + " not found");
     }
 

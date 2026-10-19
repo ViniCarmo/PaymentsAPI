@@ -4,9 +4,10 @@ import com.vinicius.payments.payments_api.account.domain.entity.Account;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-public record AccountResponseDto(Integer id,
-                                 Integer userId,
+public record AccountResponseDto(UUID id,
+                                 UUID userId,
                                  BigDecimal balance,
                                  LocalDateTime createdAt,
                                  LocalDateTime updatedAt) {

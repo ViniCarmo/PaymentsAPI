@@ -5,6 +5,8 @@ import com.vinicius.payments.payments_api.account.domain.exception.AccountNotFou
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class FindByUserIdUseCase {
 
@@ -14,7 +16,7 @@ public class FindByUserIdUseCase {
         this.accountRepository = accountRepository;
     }
     
-    public Account execute(Integer userId){
+    public Account execute(UUID userId){
       return  accountRepository.findByUserId(userId)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found for user id: " + userId));
     }

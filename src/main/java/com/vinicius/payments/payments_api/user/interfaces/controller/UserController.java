@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -37,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserResponseDto> findUserById(@PathVariable UUID id) {
         var user = findUserByIdUseCase.execute(id);
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
@@ -49,19 +51,19 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteUserById(@PathVariable UUID id) {
         deleteUserUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser(@Valid @PathVariable Integer id, @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> updateUser(@Valid @PathVariable UUID id, @RequestBody UserRequestDto userRequestDto) {
         var user = updateProfileUseCase.execute(id, userRequestDto.name(), userRequestDto.email(), userRequestDto.login());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
 
     @PutMapping("/{id}/password")
-    public ResponseEntity<Void> updateUserPassword(@Valid @PathVariable Integer id, @RequestBody UpdatePasswordRequestDto request) {
+    public ResponseEntity<Void> updateUserPassword(@Valid @PathVariable UUID id, @RequestBody UpdatePasswordRequestDto request) {
         updatePasswordUseCase.execute(id, request.newPassword());
         return ResponseEntity.ok().build();
     }
