@@ -16,7 +16,7 @@ services:
       retries: 10
 
   payments-service:
-    build: .
+    build: ./payments-service
     environment:
       DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-payments-api}
       DB_USERNAME: ${DB_USERNAME:-postgres}
