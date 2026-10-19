@@ -10,6 +10,9 @@ public interface AccountRepository {
 
     Optional<Account> findById(UUID id);
 
+    // Loads the account and locks it against concurrent updates until the current transaction ends.
+    Optional<Account> findByIdForUpdate(UUID id);
+
     Optional<Account> findByUserId(UUID userId);
 
     void deleteById(UUID id);

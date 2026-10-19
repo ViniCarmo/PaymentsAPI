@@ -6,6 +6,7 @@ import com.vinicius.payments.payments_api.account.domain.exception.AccountNotFou
 import com.vinicius.payments.payments_api.account.domain.exception.InsufficientBalanceException;
 import com.vinicius.payments.payments_api.account.domain.exception.InvalidAmountException;
 import com.vinicius.payments.payments_api.account.domain.exception.UserAlreadyHasAnAccountException;
+import com.vinicius.payments.payments_api.shared.exception.ConcurrentUpdateException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,7 +51,7 @@ class AccountControllerTest {
 
     private Account account(BigDecimal balance) {
         LocalDateTime now = LocalDateTime.now();
-        return new Account(accountId, userId, balance, now, now);
+        return new Account(accountId, userId, balance, 0L, now, now);
     }
 
     @Test
@@ -161,5 +162,17 @@ class AccountControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{not json"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void concurrentUpdateAfterRetriesReturns409() throws Exception {
+        when(withdrawUseCase.execute(accountId, new BigDecimal("50.00")))
+                .thenThrow(new ConcurrentUpdateException("Resource was modified concurrently, please retry", null));
+
+        mockMvc.perform(post("/api/v1/accounts/{id}/withdraw", accountId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"amount\": 50.00}"))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.status").value(409));
     }
 }

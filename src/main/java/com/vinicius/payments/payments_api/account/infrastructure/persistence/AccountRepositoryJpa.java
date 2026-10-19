@@ -31,6 +31,12 @@ public class AccountRepositoryJpa implements AccountRepository {
     }
 
     @Override
+    public Optional<Account> findByIdForUpdate(UUID id) {
+        return accountJpaRepository.findByIdForUpdate(id)
+                .map(AccountMapper::toDomainEntity);
+    }
+
+    @Override
     public void deleteById(UUID id) {
         accountJpaRepository.deleteById(id);
     }

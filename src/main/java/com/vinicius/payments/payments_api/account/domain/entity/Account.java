@@ -12,13 +12,15 @@ public class Account {
     private UUID id;
     private UUID userId;
     private BigDecimal balance;
+    private Long version;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Account(UUID id, UUID userId, BigDecimal balance, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Account(UUID id, UUID userId, BigDecimal balance, Long version, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.userId = userId;
         this.balance = balance;
+        this.version = version;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -51,6 +53,7 @@ public class Account {
                 null,
                 userId,
                 BigDecimal.ZERO,
+                null,
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
@@ -66,6 +69,10 @@ public class Account {
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -10,6 +10,7 @@ public class AccountMapper {
                 account.getId(),
                 account.getUserId(),
                 account.getBalance(),
+                account.getVersion(),
                 account.getCreatedAt(),
                 account.getUpdatedAt()
         );
@@ -20,6 +21,7 @@ public class AccountMapper {
                 accountJpaEntity.getId(),
                 accountJpaEntity.getUserId(),
                 accountJpaEntity.getBalance(),
+                accountJpaEntity.getVersion(),
                 accountJpaEntity.getCreatedAt(),
                 accountJpaEntity.getUpdatedAt()
         );
