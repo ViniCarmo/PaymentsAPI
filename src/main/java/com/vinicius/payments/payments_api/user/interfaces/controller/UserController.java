@@ -2,6 +2,7 @@ package com.vinicius.payments.payments_api.user.interfaces.controller;
 
 import com.vinicius.payments.payments_api.user.application.useCases.*;
 import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UpdatePasswordRequestDto;
+import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UpdateProfileRequestDto;
 import com.vinicius.payments.payments_api.user.interfaces.dto.requests.UserRequestDto;
 import com.vinicius.payments.payments_api.user.interfaces.dto.response.UserResponseDto;
 import jakarta.validation.Valid;
@@ -57,13 +58,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser(@Valid @PathVariable UUID id, @RequestBody UserRequestDto userRequestDto) {
-        var user = updateProfileUseCase.execute(id, userRequestDto.name(), userRequestDto.email(), userRequestDto.login());
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable UUID id, @Valid @RequestBody UpdateProfileRequestDto request) {
+        var user = updateProfileUseCase.execute(id, request.name(), request.email(), request.login());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
 
     @PutMapping("/{id}/password")
-    public ResponseEntity<Void> updateUserPassword(@Valid @PathVariable UUID id, @RequestBody UpdatePasswordRequestDto request) {
+    public ResponseEntity<Void> updateUserPassword(@PathVariable UUID id, @Valid @RequestBody UpdatePasswordRequestDto request) {
         updatePasswordUseCase.execute(id, request.newPassword());
         return ResponseEntity.ok().build();
     }
