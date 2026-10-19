@@ -2,6 +2,10 @@ package com.vinicius.payments.payments_api.account.interfaces.controller;
 
 import com.vinicius.payments.payments_api.account.application.useCases.*;
 import com.vinicius.payments.payments_api.account.domain.entity.Account;
+import com.vinicius.payments.payments_api.account.domain.exception.AccountNotFoundException;
+import com.vinicius.payments.payments_api.account.domain.exception.InsufficientBalanceException;
+import com.vinicius.payments.payments_api.account.domain.exception.InvalidAmountException;
+import com.vinicius.payments.payments_api.account.domain.exception.UserAlreadyHasAnAccountException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -104,5 +108,58 @@ class AccountControllerTest {
         }
 
         verifyNoInteractions(depositUseCase, withdrawUseCase);
+    }
+
+    @Test
+    void withdrawWithInsufficientBalanceReturns422() throws Exception {
+        when(withdrawUseCase.execute(accountId, new BigDecimal("50.00")))
+                .thenThrow(new InsufficientBalanceException("Insufficient balance"));
+
+        mockMvc.perform(post("/api/v1/accounts/{id}/withdraw", accountId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"amount\": 50.00}"))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.status").value(422));
+    }
+
+    @Test
+    void invalidAmountFromDomainReturns400() throws Exception {
+        when(depositUseCase.execute(accountId, new BigDecimal("50.00")))
+                .thenThrow(new InvalidAmountException("Amount must be greater than zero"));
+
+        mockMvc.perform(post("/api/v1/accounts/{id}/deposit", accountId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"amount\": 50.00}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400));
+    }
+
+    @Test
+    void unknownAccountReturns404() throws Exception {
+        when(findAccountByIdUseCase.execute(accountId)).thenThrow(new AccountNotFoundException("Account not found"));
+
+        mockMvc.perform(get("/api/v1/accounts/{id}", accountId))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void secondAccountForSameUserReturns409() throws Exception {
+        when(createAccountUseCase.execute(userId)).thenThrow(new UserAlreadyHasAnAccountException("The user already has an account."));
+
+        mockMvc.perform(post("/api/v1/accounts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userId\": \"" + userId + "\"}"))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    void malformedIdOrBodyReturns400() throws Exception {
+        mockMvc.perform(get("/api/v1/accounts/{id}", "not-a-uuid"))
+                .andExpect(status().isBadRequest());
+
+        mockMvc.perform(post("/api/v1/accounts/{id}/deposit", accountId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{not json"))
+                .andExpect(status().isBadRequest());
     }
 }

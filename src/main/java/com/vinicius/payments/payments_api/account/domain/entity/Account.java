@@ -1,6 +1,7 @@
 package com.vinicius.payments.payments_api.account.domain.entity;
 
 import com.vinicius.payments.payments_api.account.domain.exception.InsufficientBalanceException;
+import com.vinicius.payments.payments_api.account.domain.exception.InvalidAmountException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -41,7 +42,7 @@ public class Account {
 
     private void validateAmount(BigDecimal amount) {
         if(amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InsufficientBalanceException("Invalid amount");
+            throw new InvalidAmountException("Amount must be greater than zero");
         }
     }
 
