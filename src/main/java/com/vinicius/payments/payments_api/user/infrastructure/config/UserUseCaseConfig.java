@@ -1,6 +1,7 @@
 package com.vinicius.payments.payments_api.user.infrastructure.config;
 
 import com.vinicius.payments.payments_api.user.application.useCases.*;
+import com.vinicius.payments.payments_api.user.domain.port.PasswordEncoder;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class UserUseCaseConfig {
 
     @Bean
-    public CreateUserUseCase createUserUseCase(UserRepository userRepository) {
-        return new CreateUserUseCase(userRepository);
+    public CreateUserUseCase createUserUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        return new CreateUserUseCase(userRepository, passwordEncoder);
     }
 
     @Bean
@@ -29,8 +30,8 @@ public class UserUseCaseConfig {
     }
 
     @Bean
-    public UpdatePasswordUseCase updatePasswordUseCase(UserRepository userRepository) {
-        return new UpdatePasswordUseCase(userRepository);
+    public UpdatePasswordUseCase updatePasswordUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        return new UpdatePasswordUseCase(userRepository, passwordEncoder);
     }
 
     @Bean
