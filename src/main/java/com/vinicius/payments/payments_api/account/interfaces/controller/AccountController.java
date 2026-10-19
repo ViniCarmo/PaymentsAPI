@@ -41,16 +41,16 @@ public class AccountController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AccountResponseDto> findAccountById(@PathVariable UUID id) {
         var account = findAccountByIdUseCase.execute(id);
         return ResponseEntity.ok(AccountResponseDto.from(account));
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<AccountResponseDto> findAccountByUserId(@PathVariable UUID userId) {
-    var account =  findByUserIdUseCase.execute(userId);
-    return ResponseEntity.ok(AccountResponseDto.from(account));
+        var account = findByUserIdUseCase.execute(userId);
+        return ResponseEntity.ok(AccountResponseDto.from(account));
     }
 
 
