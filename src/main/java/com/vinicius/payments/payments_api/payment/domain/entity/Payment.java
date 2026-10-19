@@ -16,10 +16,10 @@ public class Payment {
     private PaymentStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime processedAt;
-    private String idempotenceKey;
+    private String idempotencyKey;
     private String failureReason;
 
-    public Payment(UUID id, UUID sourceAccountId, UUID destinationAccountId, BigDecimal amount, PaymentStatus status, LocalDateTime createdAt, LocalDateTime processedAt, String idempotenceKey, String failureReason) {
+    public Payment(UUID id, UUID sourceAccountId, UUID destinationAccountId, BigDecimal amount, PaymentStatus status, LocalDateTime createdAt, LocalDateTime processedAt, String idempotencyKey, String failureReason) {
         this.id = id;
         this.sourceAccountId = sourceAccountId;
         this.destinationAccountId = destinationAccountId;
@@ -27,7 +27,7 @@ public class Payment {
         this.status = status;
         this.createdAt = createdAt;
         this.processedAt = processedAt;
-        this.idempotenceKey = idempotenceKey;
+        this.idempotencyKey = idempotencyKey;
         this.failureReason = failureReason;
     }
 
@@ -98,8 +98,8 @@ public class Payment {
         return processedAt;
     }
 
-    public String getIdempotenceKey() {
-        return idempotenceKey;
+    public String getIdempotencyKey() {
+        return idempotencyKey;
     }
 
     public String getFailureReason() {
