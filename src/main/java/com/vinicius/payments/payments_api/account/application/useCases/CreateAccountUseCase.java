@@ -3,11 +3,9 @@ package com.vinicius.payments.payments_api.account.application.useCases;
 import com.vinicius.payments.payments_api.account.domain.entity.Account;
 import com.vinicius.payments.payments_api.account.domain.exception.UserAlreadyHasAnAccountException;
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component
 public class CreateAccountUseCase {
     private final AccountRepository accountRepository;
 

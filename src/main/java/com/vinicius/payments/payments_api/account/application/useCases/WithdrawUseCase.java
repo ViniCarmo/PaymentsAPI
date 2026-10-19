@@ -4,12 +4,10 @@ import com.vinicius.payments.payments_api.account.domain.entity.Account;
 import com.vinicius.payments.payments_api.account.domain.exception.AccountNotFoundException;
 import com.vinicius.payments.payments_api.account.domain.exception.InsufficientBalanceException;
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Component
 public class WithdrawUseCase {
 
     private final AccountRepository accountRepository;

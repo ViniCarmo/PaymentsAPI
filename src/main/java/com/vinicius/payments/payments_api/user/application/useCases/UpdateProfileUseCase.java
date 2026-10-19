@@ -4,11 +4,9 @@ import com.vinicius.payments.payments_api.user.domain.exception.EmailAlreadyInUs
 import com.vinicius.payments.payments_api.user.domain.exception.UserNotFoundException;
 import com.vinicius.payments.payments_api.user.domain.entity.User;
 import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component
 public class UpdateProfileUseCase {
 
     private final UserRepository userRepository;
