@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<AccountResponseDto> createAccount(@RequestBody AccountRequestDto accountRequestDto) {
+    public ResponseEntity<AccountResponseDto> createAccount(@Valid @RequestBody AccountRequestDto accountRequestDto) {
         var account = createAccountUseCase.execute(accountRequestDto.userId());
         return ResponseEntity.status(HttpStatus.CREATED).body(AccountResponseDto.from(account));
     }

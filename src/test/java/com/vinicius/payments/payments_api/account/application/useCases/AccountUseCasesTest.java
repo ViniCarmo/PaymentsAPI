@@ -7,6 +7,8 @@ import com.vinicius.payments.payments_api.account.domain.exception.InvalidAmount
 import com.vinicius.payments.payments_api.account.domain.exception.UserAlreadyHasAnAccountException;
 import com.vinicius.payments.payments_api.account.domain.repository.AccountRepository;
 import com.vinicius.payments.payments_api.shared.application.port.TransactionRunner;
+import com.vinicius.payments.payments_api.user.domain.exception.UserNotFoundException;
+import com.vinicius.payments.payments_api.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,6 +36,9 @@ class AccountUseCasesTest {
     @Mock
     private TransactionRunner transactionRunner;
 
+    @Mock
+    private UserRepository userRepository;
+
     private final UUID accountId = UUID.randomUUID();
     private final UUID userId = UUID.randomUUID();
 
@@ -57,11 +62,12 @@ class AccountUseCasesTest {
 
         @BeforeEach
         void setUp() {
-            useCase = new CreateAccountUseCase(accountRepository);
+            useCase = new CreateAccountUseCase(accountRepository, userRepository);
         }
 
         @Test
         void createsAccountWithZeroBalance() {
+            when(userRepository.existsById(userId)).thenReturn(true);
             when(accountRepository.findByUserId(userId)).thenReturn(Optional.empty());
             saveReturnsArgument();
 
@@ -74,11 +80,21 @@ class AccountUseCasesTest {
 
         @Test
         void rejectsSecondAccountForSameUser() {
+            when(userRepository.existsById(userId)).thenReturn(true);
             when(accountRepository.findByUserId(userId)).thenReturn(Optional.of(accountWithBalance("0")));
 
             assertThatThrownBy(() -> useCase.execute(userId)).isInstanceOf(UserAlreadyHasAnAccountException.class);
 
             verify(accountRepository, never()).save(any());
+        }
+
+        @Test
+        void rejectsUnknownUser() {
+            when(userRepository.existsById(userId)).thenReturn(false);
+
+            assertThatThrownBy(() -> useCase.execute(userId)).isInstanceOf(UserNotFoundException.class);
+
+            verifyNoInteractions(accountRepository);
         }
     }
 

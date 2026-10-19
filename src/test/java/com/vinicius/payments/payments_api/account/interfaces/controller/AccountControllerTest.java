@@ -175,4 +175,14 @@ class AccountControllerTest {
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.status").value(409));
     }
+
+    @Test
+    void createWithoutUserIdReturns400() throws Exception {
+        mockMvc.perform(post("/api/v1/accounts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(createAccountUseCase);
+    }
 }
