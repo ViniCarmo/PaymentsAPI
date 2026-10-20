@@ -1,0 +1,13 @@
+package com.vinicius.payments.payments_api.account.interfaces.dto;
+
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+import java.math.BigDecimal;
+
+public record AmountRequestDto(@NotNull(message = "Amount is required")
+                               @Positive(message = "Amount must be greater than zero")
+                               @Digits(integer = 17, fraction = 2, message = "Amount must have at most 2 decimal places")
+                               BigDecimal amount) {
+}
